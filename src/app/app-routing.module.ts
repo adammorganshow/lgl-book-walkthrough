@@ -9,7 +9,8 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: 'app/dashboard/dashboard.module#DashboardModule'
   },
-  { path: 'login', loadChildren: 'app/login/login.module#LoginModule' }
+  { path: 'login', loadChildren: 'app/login/login.module#LoginModule' },
+  { path: 'event', loadChildren: 'app/event/event.module#EventModule' }
 ];
 
 @NgModule({

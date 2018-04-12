@@ -5,11 +5,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import { User } from './user';
 import { LocalStorageService } from 'ngx-webstorage';
-import { tokenNotExpired } from 'angular2-jwt';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
   @Output() loggedIn: EventEmitter<boolean>;
+  jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(private http: HttpClient,
     private localStorage: LocalStorageService) {
@@ -37,6 +38,10 @@ export class AuthService {
   logout() {
     this.localStorage.clear('Authorization');
     this.loggedIn.emit(false);
+  }
+
+  currentUser() {
+    return this.jwtHelper.decodeToken(this.localStorage.retrieve('Authorization'));
   }
 
 }

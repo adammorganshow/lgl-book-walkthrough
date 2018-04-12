@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import { User } from './user';
 import { LocalStorageService } from 'ngx-webstorage';
-
+import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
@@ -24,6 +24,10 @@ export class AuthService {
         this.localStorage.store('Authorization', res.token);
         return res;
       });
+  }
+
+  isLoggedIn() {
+    return tokenNotExpired('ng2-webstorage|authorization');
   }
 
 }

@@ -24,6 +24,10 @@ export class EventsService {
       .map((res: Event) => this.formatDateTime(res));
   }
 
+  all(): Observable<Event[]> {
+    return this.http.get<Event[]>('http://localhost:8080/api/events');
+  }
+
   formatDateTime(event: Event): Event {
     event.displayStart = format(event.startTime, 'dddd MMM, Do - h:mm A');
     event.displayEnd = format(event.endTime, 'dddd MMM, Do - h:mm A');

@@ -29,6 +29,13 @@ describe('Navbar', () => {
       cy.request('DELETE', 'http://localhost:8080/api/test');
       cy.signup();
     });
+
+    it('should show a link to see all events', () => {
+      cy
+        .get('[data-test=events]')
+          .should('have.text', 'Events').click()
+          .url().should('include', '/events');
+    });
   
     it('should show a link to logout', () => {
       cy

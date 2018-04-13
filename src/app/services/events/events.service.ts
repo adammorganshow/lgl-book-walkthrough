@@ -5,38 +5,38 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { format } from 'date-fns';
 import { AuthService } from '../auth/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class EventsService {
+  API = environment.api;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   create(event: Event): Observable<Event> {
-    return this.http.post<Event>('http://localhost:8080/api/events', event);
+    return this.http.post<Event>(this.API + '/events', event);
   }
 
   getUserEvents(userId: string): Observable<Event[]> {
-    return this.http.get<Event[]>('http://localhost:8080/api/events/user/' +
-                                  userId);
+    return this.http.get<Event[]>(this.API + '/events/user/' + userId);
   }
 
   get(id: string): Observable<Event> {
-    return this.http.get<Event>('http://localhost:8080/api/events/' + id)
+    return this.http.get<Event>(this.API + '/events/' + id)
       .map((res: Event) => this.formatDateTime(res));
   }
 
   all(): Observable<Event[]> {
-    return this.http.get<Event[]>('http://localhost:8080/api/events');
+    return this.http.get<Event[]>(this.API + '/events');
   }
 
   subscribe(eventId: string, user: object): Observable<Event> {
-    return this.http.patch<Event>('http://localhost:8080/api/events/' +
-                                  eventId + '/subscribe', user);
+    return this.http.patch<Event>(this.API +
+                                  '/events/' + eventId + '/subscribe', user);
   }
 
   update(event: Event): Observable<Event> {
-    return this.http.patch<Event>('http://localhost:8080/api/events/' +
-                                  event._id, event);
+    return this.http.patch<Event>(this.API + '/events/' + event._id, event);
   }
 
   formatDateTime(event: Event): Event {

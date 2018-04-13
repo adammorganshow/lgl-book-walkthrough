@@ -95,7 +95,11 @@ describe('EventViewComponent', () => {
               </div>
 
               <div class="col-md-4">
-                <!--recommendations-list-->
+                <!--<app-recommendations-list
+                      *ngIf="event"
+                      [eventId]="eventId"
+                      [suggestLocations]="event.suggestLocations">
+                </app-recommendations-list>-->
               </div>
             </div>
           </div>

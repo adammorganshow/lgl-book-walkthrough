@@ -34,6 +34,11 @@ export class EventsService {
                                   eventId + '/subscribe', user);
   }
 
+  update(event: Event): Observable<Event> {
+    return this.http.patch<Event>('http://localhost:8080/api/events/' +
+                                  event._id, event);
+  }
+
   formatDateTime(event: Event): Event {
     event.displayStart = format(event.startTime, 'dddd MMM, Do - h:mm A');
     event.displayEnd = format(event.endTime, 'dddd MMM, Do - h:mm A');
